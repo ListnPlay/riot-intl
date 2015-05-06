@@ -1,11 +1,10 @@
 /* jshint esnext:true */
 
 // TODO: Use `import React from "react";` when external modules are supported.
-import React from '../react';
+import riot from '../riot';
+var FormattedMessage = {};
 
-import IntlMixin from '../mixin';
-
-var FormattedMessage = React.createClass({
+/*var FormattedMessage = React.createClass({
     displayName: 'FormattedMessage',
     mixins     : [IntlMixin],
 
@@ -77,6 +76,6 @@ var FormattedMessage = React.createClass({
         var elementArgs = [tagName, null].concat(children);
         return React.createElement.apply(null, elementArgs);
     }
-});
+});*/
 
 export default FormattedMessage;

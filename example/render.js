@@ -13,7 +13,7 @@ global.ReactIntl = require('../'); // require('react-intl');
 global.ReactIntlMixin = ReactIntl;
 
 // requiring components
-require('./build/components.js');
+require('./src/components.js');
 
 var i18n = {
   locales: ["en-US"],
