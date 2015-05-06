@@ -1,2 +1,4 @@
-# riot-intl
-RiotJS Integration for FormatJS
+[React Intl][]
+==============
+
+Riot JS Intergration for FormatJS
