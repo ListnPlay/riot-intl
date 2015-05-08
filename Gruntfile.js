@@ -89,7 +89,6 @@ module.exports = function (grunt) {
         cjs_jsnext: {
             dest: 'tmp/'
         },
-
         uglify: {
             options: {
                 preserveComments       : 'some',
@@ -148,7 +147,6 @@ module.exports = function (grunt) {
                 dest: 'tmp/browserify/app.js'
             }
         },
-
         'saucelabs-mocha': {
             all: {
                 options: {

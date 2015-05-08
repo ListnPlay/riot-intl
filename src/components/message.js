@@ -2,7 +2,14 @@
 
 // TODO: Use `import React from "react";` when external modules are supported.
 import riot from '../riot';
-var FormattedMessage = {};
+
+riot.tag('formatted-message',' \
+         <h2>Formatted Message!</h2> \
+ ',
+    function(opts) {
+        console.log("Formatted message with opts ", opts);
+    }
+);
 
 /*var FormattedMessage = React.createClass({
     displayName: 'FormattedMessage',
@@ -78,4 +85,4 @@ var FormattedMessage = {};
     }
 });*/
 
-export default FormattedMessage;
+export default {};

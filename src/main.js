@@ -1,11 +1,13 @@
 /* jshint esnext: true */
 
 import {
+    IntlMixin,
     FormattedMessage,
     __addLocaleData
 } from './riot-intl';
 
 export default {
     FormattedMessage    : FormattedMessage,
-    __addLocaleData: __addLocaleData
+    IntlMixin           : IntlMixin,
+    __addLocaleData     : __addLocaleData
 };

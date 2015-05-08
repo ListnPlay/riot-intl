@@ -1,23 +1,9 @@
 /* jshint esnext:true */
-
-// TODO: Use `import React from "react";` when external modules are supported.
-import React from './react';
-
 import IntlMessageFormat from 'intl-messageformat';
 import IntlRelativeFormat from 'intl-relativeformat';
 import createFormatCache from 'intl-format-cache';
 
 // -----------------------------------------------------------------------------
-
-var typesSpec = {
-    locales: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.array
-    ]),
-
-    formats : React.PropTypes.object,
-    messages: React.PropTypes.object
-};
 
 function assertIsDate(date, errMsg) {
     // Determine if the `date` is valid by checking if it is finite, which is
@@ -43,10 +29,6 @@ export default {
             }, {});
         }
     },
-
-    propTypes        : typesSpec,
-    contextTypes     : typesSpec,
-    childContextTypes: typesSpec,
 
     getNumberFormat  : createFormatCache(Intl.NumberFormat),
     getDateTimeFormat: createFormatCache(Intl.DateTimeFormat),
