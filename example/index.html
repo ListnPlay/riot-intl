@@ -8,25 +8,31 @@
     <my-tag></my-tag>
     <script src="https://cdn.jsdelivr.net/g/riot@2.0%28riot.min.js+compiler.min.js%29"></script>
     <script src="../dist/riot-intl-with-locales.js"></script>
-    <script type="riot/tag">
-        <my-tag>
-            <h1>{ message }</h1>
-            <formatted-message></formatted-message>
-            
-            // NOTE: script tag doesn't work in jsFiddle
-            this.message = 'HELLO WORLD!'
-        </my-tag>
-    </script>
     <script>
-      var i18n = {
-        locales: ["en-US"],
-        messages: {
+        riotIntl.IntlMixin.locales = ["en-US"],
+        riotIntl.IntlMixin.messages = {
           SHORT: "{product} cost {price, number, usd} if ordered by {deadline, date, medium}",
           LONG: "{product} cost {price, number, usd} (or {price, number, eur}) if ordered by {deadline, date, medium}",
           LONG_WITH_HTML: "{product} cost <b>{price, number, usd}</b> (<i>or {price, number, eur}</i>) if ordered by {deadline, date, medium}"
         }
-      };
-
+    </script>
+    <script type="riot/tag">
+        <my-tag>
+            <h1>{ message }</h1>
+            <formatted-message 
+                message="{riotIntl.getIntlMessage('SHORT')}"
+                product="apples"
+                price="{2000.15}"
+                deadline="{new Date()}"
+                timeZone="UTC" 
+            ></formatted-message>
+            
+            this.riotIntl = riotIntl.IntlMixin;
+            this.message = 'HELLO WORLD!'
+        </my-tag>
+    </script>
+    <script>
+     
      riot.mount('*')
     </script>
   </body>

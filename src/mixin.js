@@ -36,13 +36,12 @@ export default {
     getRelativeFormat: createFormatCache(IntlRelativeFormat),
 
     getChildContext: function () {
-        var context = this.context;
-        var props   = this.props;
+        var opts   = this.opts;
 
         return {
-            locales:  props.locales  || context.locales,
-            formats:  props.formats  || context.formats,
-            messages: props.messages || context.messages
+            locales:  this.locales,
+            formats:  this.formats,
+            messages: this.messages
         };
     },
 
@@ -69,8 +68,8 @@ export default {
     },
 
     formatMessage: function (message, values) {
-        var locales = this.props.locales || this.context.locales;
-        var formats = this.props.formats || this.context.formats;
+        var locales = this.locales;
+        var formats = this.formats;
 
         // When `message` is a function, assume it's an IntlMessageFormat
         // instance's `format()` method passed by reference, and call it. This
@@ -87,7 +86,9 @@ export default {
     },
 
     getIntlMessage: function (path) {
-        var messages  = this.props.messages || this.context.messages;
+        console.log("getIntlMessage: ", this.messages);
+
+        var messages  = this.messages;
         var pathParts = path.split('.');
 
         var message;
@@ -106,7 +107,7 @@ export default {
     },
 
     getNamedFormat: function (type, name) {
-        var formats = this.props.formats || this.context.formats;
+        var formats = this.opts.formats || this.formats;
         var format  = null;
 
         try {
@@ -123,7 +124,7 @@ export default {
     },
 
     _format: function (type, value, options, formatOptions) {
-        var locales = this.props.locales || this.context.locales;
+        var locales = this.locales;
 
         if (options && typeof options === 'string') {
             options = this.getNamedFormat(type, options);
