@@ -34,5 +34,4 @@ jspm_packages
 build
 public
 
-lib
-dist
+tmp
