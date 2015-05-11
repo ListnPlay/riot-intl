@@ -68,9 +68,8 @@ export default {
     },
 
     formatMessage: function (message, values) {
-        console.log("formatMessage: ", this.messages);
-        var locales = this.locales;
-        var formats = this.formats;
+        var locales = this.locales || this.parent.locales;
+        var formats = this.formats || this.parent.locales;
 
         // When `message` is a function, assume it's an IntlMessageFormat
         // instance's `format()` method passed by reference, and call it. This
@@ -87,7 +86,7 @@ export default {
     },
 
     getIntlMessage: function (path) {
-        var messages  = this.messages;
+        var messages  = this.messages || this.parent.messages;
         var pathParts = path.split('.');
 
         var message;
@@ -107,7 +106,7 @@ export default {
     },
 
     getNamedFormat: function (type, name) {
-        var formats = this.opts.formats || this.formats;
+        var formats = this.formats || this.parent.formats;
         var format  = null;
 
         try {
@@ -124,7 +123,7 @@ export default {
     },
 
     _format: function (type, value, options, formatOptions) {
-        var locales = this.locales;
+        var locales = this.locales || this.parent.locales;
 
         if (options && typeof options === 'string') {
             options = this.getNamedFormat(type, options);
