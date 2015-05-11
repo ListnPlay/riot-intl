@@ -9,6 +9,8 @@ global.riot = require('riot');
 var RiotIntl = require('./lib/riot-intl');
 require('./lib/locales');
 
+exports = module.exports = RiotIntl;
+
 // Put back `global.React` to how it was.
 if (oldriot) {
     global.riot = oldriot;
