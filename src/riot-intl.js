@@ -7,9 +7,11 @@ import defaultLocale from './en';
 
 import FormattedMessage from './components/message';
 import IntlMixin from './mixin';
+import RiotMixin from './riot-mixin';
 
 export {
     IntlMixin,
+    RiotMixin,
     FormattedMessage
 };
 

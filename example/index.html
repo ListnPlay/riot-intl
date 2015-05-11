@@ -9,26 +9,39 @@
     <script src="https://cdn.jsdelivr.net/g/riot@2.0%28riot.min.js+compiler.min.js%29"></script>
     <script src="../dist/riot-intl-with-locales.js"></script>
     <script>
-        riotIntl.IntlMixin.locales = ["en-US"],
-        riotIntl.IntlMixin.messages = {
-          SHORT: "{product} cost {price, number, usd} if ordered by {deadline, date, medium}",
-          LONG: "{product} cost {price, number, usd} (or {price, number, eur}) if ordered by {deadline, date, medium}",
-          LONG_WITH_HTML: "{product} cost <b>{price, number, usd}</b> (<i>or {price, number, eur}</i>) if ordered by {deadline, date, medium}"
-        }
+    // Until riot mixin is merged
+    function extend(obj, from, from2) {
+      from && Object.keys(from).forEach(function(key) {
+        obj[key] = from[key]
+      });
+      return from2 ? extend(obj, from2) : obj
+    }
     </script>
     <script type="riot/tag">
         <my-tag>
             <h1>{ message }</h1>
             <formatted-message 
-                message="{riotIntl.getIntlMessage('SHORT')}"
+                message="{getIntlMessage('SHORT')}"
                 product="apples"
                 price="{2000.15}"
                 deadline="{new Date()}"
                 timeZone="UTC" 
             ></formatted-message>
+            <span>{hello()}</span>
+            <span>{avner()}</span>
             
-            this.riotIntl = riotIntl.IntlMixin;
-            this.message = 'HELLO WORLD!'
+            this.whatever = "Whatever";
+            var self = this;
+            riotIntl.RiotMixin(this,riotIntl.IntlMixin);
+            console.log("This after mix", this);
+            console.log(this.getIntlMessage);
+            this.locales = ["ja-JP"],
+            this.messages = {
+              SHORT: "{product} cost {price, number, usd} if ordered by {deadline, date, medium}",
+              LONG: "{product} cost {price, number, usd} (or {price, number, eur}) if ordered by {deadline, date, medium}",
+              LONG_WITH_HTML: "{product} cost <b>{price, number, usd}</b> (<i>or {price, number, eur}</i>) if ordered by {deadline, date, medium}"
+            }
+            this.message = 'HELLO RIOT!'
         </my-tag>
     </script>
     <script>

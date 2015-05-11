@@ -33,3 +33,7 @@ node_modules
 jspm_packages
 build
 public
+
+lib
+tmp
+dist

@@ -3,12 +3,13 @@
 // TODO: Use `import React from "react";` when external modules are supported.
 import riot from '../riot';
 import mixin from '../mixin';
+import RiotMixin from '../riot-mixin';
 
 riot.tag('formatted-message',' \
          <span>{formattedMessage}</span> \
  ',
     function(opts) {
-        console.log("Formatted message with opts ", opts);
+        RiotMixin(this, mixin);
         var message = opts.message;
         var values = Object.keys(opts).reduce(function (values, name) {
             var value = opts[name];
@@ -16,8 +17,10 @@ riot.tag('formatted-message',' \
 
             return values;
         }, {});
-        this.formattedMessage = mixin.formatMessage(message, values);
-        console.log("Formatted message: ", this.formattedMessage);
+        if (message) {
+            this.formattedMessage = this.formatMessage(message, values);
+            console.log("Formatted message: ", this.formattedMessage);
+        }
     }
 );
 

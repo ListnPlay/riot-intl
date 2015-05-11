@@ -68,6 +68,7 @@ export default {
     },
 
     formatMessage: function (message, values) {
+        console.log("formatMessage: ", this.messages);
         var locales = this.locales;
         var formats = this.formats;
 
@@ -86,24 +87,23 @@ export default {
     },
 
     getIntlMessage: function (path) {
-        console.log("getIntlMessage: ", this.messages);
-
         var messages  = this.messages;
         var pathParts = path.split('.');
 
         var message;
-
+        
         try {
             message = pathParts.reduce(function (obj, pathPart) {
                 return obj[pathPart];
             }, messages);
         } finally {
             if (message === undefined) {
+                console.error('Could not find Intl message: ' + path);
                 throw new ReferenceError('Could not find Intl message: ' + path);
             }
         }
 
-        return message;
+        return message;  
     },
 
     getNamedFormat: function (type, name) {
