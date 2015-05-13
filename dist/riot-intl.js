@@ -2571,6 +2571,48 @@
     );
 
     var $$components$number$$default = {};
+
+    $$$riot$$default.tag('formatted-time',' \
+             <span>{formattedTime}</span> \
+     ',
+        function(opts) {
+            $$riot$mixin$$default(this, $$mixin$$default);
+
+            this.formatOptions = [
+                'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
+                'era', 'year', 'month', 'day', 'hour', 'minute', 'second',
+                'timeZoneName'
+            ];
+
+            var value = opts.value;
+            var format = opts.format;
+            var defaults = format && this.getNamedFormat('time', format);
+            var options  = this.filterFormatOptions(opts, defaults);
+            this.formattedTime = this.formatTime(value, options);
+        }
+    );
+
+    var $$components$time$$default = {};
+
+    $$$riot$$default.tag('formatted-relative',' \
+             <span>{formattedRelative}</span> \
+     ',
+        function(opts) {
+            $$riot$mixin$$default(this, $$mixin$$default);
+
+            this.formatOptions = [
+                'style', 'units'
+            ];
+
+            var value = opts.value;
+            var format = opts.format;
+            var defaults = format && this.getNamedFormat('relative', format);
+            var options  = this.filterFormatOptions(opts, defaults);
+            this.formattedRelative = this.formatRelative(value, options, {now: opts.now});
+        }
+    );
+
+    var $$components$relative$$default = {};
     function $$riot$intl$$__addLocaleData(data) {
         intl$messageformat$$default.__addLocaleData(data);
     }
@@ -2581,6 +2623,8 @@
         FormattedMessage    : $$components$message$$default,
         FormattedDate       : $$components$date$$default,
         FormattedNumber     : $$components$number$$default,
+        FormattedTime       : $$components$time$$default,
+        FormattedRelative   : $$components$relative$$default,
         IntlMixin           : $$mixin$$default,
         RiotMixin           : $$riot$mixin$$default,
         __addLocaleData     : $$riot$intl$$__addLocaleData
