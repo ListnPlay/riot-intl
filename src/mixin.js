@@ -14,20 +14,18 @@ function assertIsDate(date, errMsg) {
 }
 
 export default {
-    statics: {
-        filterFormatOptions: function (obj, defaults) {
-            if (!defaults) { defaults = {}; }
+    filterFormatOptions: function (obj, defaults) {
+        if (!defaults) { defaults = {}; }
 
-            return (this.formatOptions || []).reduce(function (opts, name) {
-                if (obj.hasOwnProperty(name)) {
-                    opts[name] = obj[name];
-                } else if (defaults.hasOwnProperty(name)) {
-                    opts[name] = defaults[name];
-                }
+        return (this.formatOptions || []).reduce(function (opts, name) {
+            if (obj.hasOwnProperty(name)) {
+                opts[name] = obj[name];
+            } else if (defaults.hasOwnProperty(name)) {
+                opts[name] = defaults[name];
+            }
 
-                return opts;
-            }, {});
-        }
+            return opts;
+        }, {});
     },
 
     getNumberFormat  : createFormatCache(Intl.NumberFormat),
@@ -69,7 +67,7 @@ export default {
 
     formatMessage: function (message, values) {
         var locales = this.locales || this.parent.locales;
-        var formats = this.formats || this.parent.locales;
+        var formats = this.formats || this.parent.formats;
 
         // When `message` is a function, assume it's an IntlMessageFormat
         // instance's `format()` method passed by reference, and call it. This

@@ -8,15 +8,6 @@
     <my-tag></my-tag>
     <script src="https://cdn.jsdelivr.net/g/riot@2.0%28riot.min.js+compiler.min.js%29"></script>
     <script src="../dist/riot-intl-with-locales.js"></script>
-    <script>
-    // Until riot mixin is merged
-    function extend(obj, from, from2) {
-      from && Object.keys(from).forEach(function(key) {
-        obj[key] = from[key]
-      });
-      return from2 ? extend(obj, from2) : obj
-    }
-    </script>
     <script type="riot/tag">
         <my-tag>
             <h1>{ message }</h1>
@@ -27,14 +18,41 @@
                 deadline="{new Date()}"
                 timeZone="UTC" 
             ></formatted-message>
-            <span>{hello()}</span>
-            <span>{avner()}</span>
+
+            <h2>formatted-date component</h2>
+            <h3>default</h3>
+            <formatted-date value={someTimestamp}></formatted-date>
+            <h3>with options</h3>
+            <formatted-date value={someTimestamp} hour="numeric" minute="numeric"></formatted-date>
+            <h3>with custom format</h3>
+            <formatted-date value={someTimestamp} format="time-style"></formatted-date>
+
+            <h2>formatted-number component</h2>
+            <h3>default</h3>
+            <formatted-number value={400}></formatted-number>
+            <h3>with options</h3>
+            <formatted-number value={0.40} style="percent"></formatted-number>
+            <h3>with currency</h3>
+            <formatted-number value={40} style="currency" currency="USD"></formatted-number>
+            <h3>with custom format</h3>
+            <formatted-number value={400} format="eur"></formatted-number>
+
             
-            this.whatever = "Whatever";
-            var self = this;
+           this.formats = {
+              date: {
+                "time-style": {
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric"
+                }
+              },
+              number: {
+                  eur: { style: 'currency', currency: 'EUR' },
+                  usd: { style: 'currency', currency: 'USD' }
+              }
+            };
+            this.someTimestamp = 1409939308585;
             riotIntl.RiotMixin(this,riotIntl.IntlMixin);
-            console.log("This after mix", this);
-            console.log(this.getIntlMessage);
             this.locales = ["ja-JP"],
             this.messages = {
               SHORT: "{product} cost {price, number, usd} if ordered by {deadline, date, medium}",

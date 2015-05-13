@@ -1,9 +1,6 @@
 /* jshint esnext:true */
 
 /*
-HTML escaping implementation is the same as React's (on purpose.) Therefore, it
-has the following Copyright and Licensing:
-
 Copyright 2013-2014, Facebook, Inc.
 All rights reserved.
 

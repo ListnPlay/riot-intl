@@ -2363,20 +2363,18 @@
     }
 
     var $$mixin$$default = {
-        statics: {
-            filterFormatOptions: function (obj, defaults) {
-                if (!defaults) { defaults = {}; }
+        filterFormatOptions: function (obj, defaults) {
+            if (!defaults) { defaults = {}; }
 
-                return (this.formatOptions || []).reduce(function (opts, name) {
-                    if (obj.hasOwnProperty(name)) {
-                        opts[name] = obj[name];
-                    } else if (defaults.hasOwnProperty(name)) {
-                        opts[name] = defaults[name];
-                    }
+            return (this.formatOptions || []).reduce(function (opts, name) {
+                if (obj.hasOwnProperty(name)) {
+                    opts[name] = obj[name];
+                } else if (defaults.hasOwnProperty(name)) {
+                    opts[name] = defaults[name];
+                }
 
-                    return opts;
-                }, {});
-            }
+                return opts;
+            }, {});
         },
 
         getNumberFormat  : intl$format$cache$$default(Intl.NumberFormat),
@@ -2418,7 +2416,7 @@
 
         formatMessage: function (message, values) {
             var locales = this.locales || this.parent.locales;
-            var formats = this.formats || this.parent.locales;
+            var formats = this.formats || this.parent.formats;
 
             // When `message` is a function, assume it's an IntlMessageFormat
             // instance's `format()` method passed by reference, and call it. This
@@ -2528,6 +2526,51 @@
     );
 
     var $$components$message$$default = {};
+
+    $$$riot$$default.tag('formatted-date',' \
+             <span>{formattedDate}</span> \
+     ',
+        function(opts) {
+            $$riot$mixin$$default(this, $$mixin$$default);
+
+            this.formatOptions = [
+                'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
+                'era', 'year', 'month', 'day', 'hour', 'minute', 'second',
+                'timeZoneName'
+            ];
+
+            var value = opts.value;
+            var format = opts.format;
+            var defaults = format && this.getNamedFormat('date', format);
+            var options  = this.filterFormatOptions(opts, defaults);
+            this.formattedDate = this.formatDate(value, options);
+        }
+    );
+
+    var $$components$date$$default = {};
+
+    $$$riot$$default.tag('formatted-number',' \
+             <span>{formattedNumber}</span> \
+     ',
+        function(opts) {
+            $$riot$mixin$$default(this, $$mixin$$default);
+
+            this.formatOptions = [
+                'localeMatcher', 'style', 'currency', 'currencyDisplay',
+                'useGrouping', 'minimumIntegerDigits', 'minimumFractionDigits',
+                'maximumFractionDigits', 'minimumSignificantDigits',
+                'maximumSignificantDigits'
+            ];
+
+            var value = opts.value;
+            var format = opts.format;
+            var defaults = format && this.getNamedFormat('number', format);
+            var options  = this.filterFormatOptions(opts, defaults);
+            this.formattedNumber = this.formatNumber(value, options);
+        }
+    );
+
+    var $$components$number$$default = {};
     function $$riot$intl$$__addLocaleData(data) {
         intl$messageformat$$default.__addLocaleData(data);
     }
@@ -2536,6 +2579,8 @@
 
     var src$main$$default = {
         FormattedMessage    : $$components$message$$default,
+        FormattedDate       : $$components$date$$default,
+        FormattedNumber     : $$components$number$$default,
         IntlMixin           : $$mixin$$default,
         RiotMixin           : $$riot$mixin$$default,
         __addLocaleData     : $$riot$intl$$__addLocaleData
