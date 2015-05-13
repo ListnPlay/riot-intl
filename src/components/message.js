@@ -19,7 +19,6 @@ riot.tag('formatted-message',' \
         }, {});
         if (message) {
             this.formattedMessage = this.formatMessage(message, values);
-            console.log("Formatted message: ", this.formattedMessage);
         }
     }
 );
