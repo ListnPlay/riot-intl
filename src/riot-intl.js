@@ -26,6 +26,7 @@ export {
 
 export function __addLocaleData(data) {
     IntlMessageFormat.__addLocaleData(data);
+    IntlRelativeFormat.__addLocaleData(data);
 }
 
 __addLocaleData(defaultLocale);

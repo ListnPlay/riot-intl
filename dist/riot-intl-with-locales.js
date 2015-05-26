@@ -2615,6 +2615,7 @@
     var $$components$relative$$default = {};
     function $$riot$intl$$__addLocaleData(data) {
         intl$messageformat$$default.__addLocaleData(data);
+        intl$relativeformat$$default.__addLocaleData(data);
     }
 
     $$riot$intl$$__addLocaleData($$en$$default);
