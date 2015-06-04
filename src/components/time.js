@@ -2,13 +2,12 @@
 
 import riot from '../riot';
 import mixin from '../mixin';
-import RiotMixin from '../riot-mixin';
 
 riot.tag('formatted-time',' \
          <span>{formattedTime}</span> \
  ',
     function(opts) {
-        RiotMixin(this, mixin);
+        this.mixin(mixin);
 
         this.formatOptions = [
             'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
@@ -16,11 +15,14 @@ riot.tag('formatted-time',' \
             'timeZoneName'
         ];
 
-        var value = opts.value;
-        var format = opts.format;
-        var defaults = format && this.getNamedFormat('time', format);
-        var options  = this.filterFormatOptions(opts, defaults);
-        this.formattedTime = this.formatTime(value, options);
+        this.on('update', function() {
+            var value = opts.value;
+            var format = opts.format;
+            var defaults = format && this.getNamedFormat('time', format);
+            var options  = this.filterFormatOptions(opts, defaults);
+            this.formattedTime = this.formatTime(value, options);
+        });
+
     }
 );
 

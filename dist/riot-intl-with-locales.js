@@ -2490,38 +2490,24 @@
         }
     };
 
-    function $$riot$mixin$$makeProxy(obj,func) {
-        return function() {
-            var args = [].slice.call(arguments);
-            return func.apply(obj, args);
-        };
-    }
-
-    var $$riot$mixin$$riotMixin = function(obj, mix) {
-        for(var x in mix) {
-           if(mix.hasOwnProperty(x)) {
-                obj[x] = $$riot$mixin$$makeProxy(obj, mix[x]);
-            }
-        }
-    };
-
-    var $$riot$mixin$$default = $$riot$mixin$$riotMixin;
-
     $$$riot$$default.tag('formatted-message',' \
              <span>{formattedMessage}</span> \
      ',
         function(opts) {
-            $$riot$mixin$$default(this, $$mixin$$default);
-            var message = opts.message;
-            var values = Object.keys(opts).reduce(function (values, name) {
-                var value = opts[name];
-                values[name] = value;
+            this.mixin($$mixin$$default);
 
-                return values;
-            }, {});
-            if (message) {
-                this.formattedMessage = this.formatMessage(message, values);
-            }
+            this.on('update', function() {
+                var message = opts.message;
+                var values = Object.keys(opts).reduce(function (values, name) {
+                    var value = opts[name];
+                    values[name] = value;
+
+                    return values;
+                }, {});
+                if (message) {
+                    this.formattedMessage = this.formatMessage(message, values);
+                }
+            });
         }
     );
 
@@ -2531,7 +2517,7 @@
              <span>{formattedDate}</span> \
      ',
         function(opts) {
-            $$riot$mixin$$default(this, $$mixin$$default);
+            this.mixin($$mixin$$default);
 
             this.formatOptions = [
                 'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
@@ -2539,11 +2525,14 @@
                 'timeZoneName'
             ];
 
-            var value = opts.value;
-            var format = opts.format;
-            var defaults = format && this.getNamedFormat('date', format);
-            var options  = this.filterFormatOptions(opts, defaults);
-            this.formattedDate = this.formatDate(value, options);
+            this.on('update', function() {
+                var value = opts.value;
+                var format = opts.format;
+                var defaults = format && this.getNamedFormat('date', format);
+                var options  = this.filterFormatOptions(opts, defaults);
+                this.formattedDate = this.formatDate(value, options);
+            });
+
         }
     );
 
@@ -2553,7 +2542,7 @@
              <span>{formattedNumber}</span> \
      ',
         function(opts) {
-            $$riot$mixin$$default(this, $$mixin$$default);
+            this.mixin($$mixin$$default);
 
             this.formatOptions = [
                 'localeMatcher', 'style', 'currency', 'currencyDisplay',
@@ -2562,11 +2551,14 @@
                 'maximumSignificantDigits'
             ];
 
-            var value = opts.value;
-            var format = opts.format;
-            var defaults = format && this.getNamedFormat('number', format);
-            var options  = this.filterFormatOptions(opts, defaults);
-            this.formattedNumber = this.formatNumber(value, options);
+            this.on('update', function() {
+                var value = opts.value;
+                var format = opts.format;
+                var defaults = format && this.getNamedFormat('number', format);
+                var options  = this.filterFormatOptions(opts, defaults);
+                this.formattedNumber = this.formatNumber(value, options);
+            });
+
         }
     );
 
@@ -2576,7 +2568,7 @@
              <span>{formattedTime}</span> \
      ',
         function(opts) {
-            $$riot$mixin$$default(this, $$mixin$$default);
+            this.mixin($$mixin$$default);
 
             this.formatOptions = [
                 'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
@@ -2584,11 +2576,14 @@
                 'timeZoneName'
             ];
 
-            var value = opts.value;
-            var format = opts.format;
-            var defaults = format && this.getNamedFormat('time', format);
-            var options  = this.filterFormatOptions(opts, defaults);
-            this.formattedTime = this.formatTime(value, options);
+            this.on('update', function() {
+                var value = opts.value;
+                var format = opts.format;
+                var defaults = format && this.getNamedFormat('time', format);
+                var options  = this.filterFormatOptions(opts, defaults);
+                this.formattedTime = this.formatTime(value, options);
+            });
+
         }
     );
 
@@ -2598,17 +2593,20 @@
              <span>{formattedRelative}</span> \
      ',
         function(opts) {
-            $$riot$mixin$$default(this, $$mixin$$default);
+            this.mixin($$mixin$$default);
 
             this.formatOptions = [
                 'style', 'units'
             ];
 
-            var value = opts.value;
-            var format = opts.format;
-            var defaults = format && this.getNamedFormat('relative', format);
-            var options  = this.filterFormatOptions(opts, defaults);
-            this.formattedRelative = this.formatRelative(value, options, {now: opts.now});
+            this.on('update', function() {
+                var value = opts.value;
+                var format = opts.format;
+                var defaults = format && this.getNamedFormat('relative', format);
+                var options  = this.filterFormatOptions(opts, defaults);
+                this.formattedRelative = this.formatRelative(value, options, {now: opts.now});
+            })
+
         }
     );
 
@@ -2627,7 +2625,6 @@
         FormattedTime       : $$components$time$$default,
         FormattedRelative   : $$components$relative$$default,
         IntlMixin           : $$mixin$$default,
-        RiotMixin           : $$riot$mixin$$default,
         __addLocaleData     : $$riot$intl$$__addLocaleData
     };
 

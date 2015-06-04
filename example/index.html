@@ -6,7 +6,7 @@
   </head>
   <body>
     <my-tag></my-tag>
-    <script src="https://cdn.jsdelivr.net/g/riot@2.0%28riot.min.js+compiler.min.js%29"></script>
+    <script src="https://cdn.jsdelivr.net/g/riot@2.1%28riot.min.js+compiler.min.js%29"></script>
     <script src="../dist/riot-intl-with-locales.js"></script>
     <script type="riot/tag">
         <my-tag>
@@ -54,7 +54,7 @@
               }
             };
             this.someTimestamp = 1409939308585;
-            riotIntl.RiotMixin(this,riotIntl.IntlMixin);
+            this.mixin(riotIntl.IntlMixin);
             this.locales = ["he"],
             this.messages = {
               SHORT: "{product} cost {price, number, usd} if ordered by {deadline, date, medium}",

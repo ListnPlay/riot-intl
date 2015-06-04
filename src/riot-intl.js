@@ -12,11 +12,9 @@ import FormattedTime from './components/time';
 import FormattedRelative from './components/relative';
 
 import IntlMixin from './mixin';
-import RiotMixin from './riot-mixin';
 
 export {
     IntlMixin,
-    RiotMixin,
     FormattedMessage,
     FormattedDate,
     FormattedNumber,

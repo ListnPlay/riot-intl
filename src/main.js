@@ -7,8 +7,7 @@ import {
     FormattedNumber,
     FormattedTime,
     FormattedRelative,
-    __addLocaleData,
-    RiotMixin
+    __addLocaleData
 } from './riot-intl';
 
 export default {
@@ -18,6 +17,5 @@ export default {
     FormattedTime       : FormattedTime,
     FormattedRelative   : FormattedRelative,
     IntlMixin           : IntlMixin,
-    RiotMixin           : RiotMixin,
     __addLocaleData     : __addLocaleData
 };
