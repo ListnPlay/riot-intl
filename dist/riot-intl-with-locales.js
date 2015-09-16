@@ -2393,25 +2393,25 @@
         },
 
         formatDate: function (date, options) {
-            date = new Date(date);
+            date = new Date(date || 0);
             $$mixin$$assertIsDate(date, 'A date or timestamp must be provided to formatDate()');
             return this._format('date', date, options);
         },
 
         formatTime: function (date, options) {
-            date = new Date(date);
+            date = new Date(date || 0);
             $$mixin$$assertIsDate(date, 'A date or timestamp must be provided to formatTime()');
             return this._format('time', date, options);
         },
 
         formatRelative: function (date, options, formatOptions) {
-            date = new Date(date);
+            date = new Date(date || 0);
             $$mixin$$assertIsDate(date, 'A date or timestamp must be provided to formatRelative()');
             return this._format('relative', date, options, formatOptions);
         },
 
         formatNumber: function (num, options) {
-            return this._format('number', num, options);
+            return this._format('number', num || 0, options);
         },
 
         formatMessage: function (message, values) {
