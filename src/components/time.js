@@ -16,7 +16,7 @@ riot.tag('formatted-time',' \
         ];
 
         this.on('update', function() {
-            var value = opts.timeVal;
+            var value = opts.value;
             var format = opts.format;
             var defaults = format && this.getNamedFormat('time', format);
             var options  = this.filterFormatOptions(opts, defaults);
