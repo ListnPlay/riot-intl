@@ -2367,8 +2367,16 @@
             if (!defaults) { defaults = {}; }
 
             return (this.formatOptions || []).reduce(function (opts, name) {
+                var alternativeName = null;
+                if (name) {
+                    // parameter options are converted to lowercase somewhere along the way (by riot?), we need to recover the correct names
+                    alternativeName = name.split(/(?=[A-Z])/).join('-').toLowerCase();  // split on uppercase, then join with a separator and lowercase. i.e find minimum-fraction-digits as well as minimumFractionDigits
+                }
+
                 if (obj.hasOwnProperty(name)) {
                     opts[name] = obj[name];
+                } else if (alternativeName && obj.hasOwnProperty(alternativeName)) {
+                    opts[name] = obj[alternativeName];
                 } else if (defaults.hasOwnProperty(name)) {
                     opts[name] = defaults[name];
                 }
@@ -2577,11 +2585,21 @@
             ];
 
             this.on('update', function() {
-                var value = opts.value;
-                var format = opts.format;
-                var defaults = format && this.getNamedFormat('time', format);
-                var options  = this.filterFormatOptions(opts, defaults);
-                this.formattedTime = this.formatTime(value, options);
+                /* Support only short. workaround for explorer. need to upgrade and rewrite riot-intl */
+                var value = opts.value
+                var ms = value % 1000;
+                value = (value - ms) / 1000;
+                var secs = value % 60;
+                var mins = (value - secs) / 60;
+
+                this.formattedTime =  mins + ':' + ('0' + secs).slice(-2);
+                /*
+                    var value = opts.value;
+                    var format = opts.format;
+                    var defaults = format && this.getNamedFormat('time', format);
+                    var options = this.filterFormatOptions(opts, defaults);
+                    this.formattedTime = this.formatTime(value, options);
+                */
             });
 
         }
