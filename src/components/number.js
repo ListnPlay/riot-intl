@@ -8,6 +8,7 @@ riot.tag('formatted-number',' \
  ',
     function(opts) {
         this.mixin(mixin);
+        var self = this;
 
         this.formatOptions = [
             'localeMatcher', 'style', 'currency', 'currencyDisplay',
@@ -16,14 +17,19 @@ riot.tag('formatted-number',' \
             'maximumSignificantDigits'
         ];
 
-        this.on('update', function() {
+        var updateItemData = function() {
             var value = opts.value;
             var format = opts.format;
-            var defaults = format && this.getNamedFormat('number', format);
-            var options  = this.filterFormatOptions(opts, defaults);
-            this.formattedNumber = this.formatNumber(value, options);
+            var defaults = format && self.getNamedFormat('number', format);
+            var options  = self.filterFormatOptions(opts, defaults);
+            self.formattedNumber = self.formatNumber(value, options);
+        };
+
+        this.on('update', function() {
+            updateItemData();
         });
 
+        updateItemData();
     }
 );
 

@@ -8,8 +8,9 @@ riot.tag('formatted-message',' \
  ',
     function(opts) {
         this.mixin(mixin);
+        var self = this;
 
-        this.on('update', function() {
+        var updateItemData = function() {
             var message = opts.message;
             var values = Object.keys(opts).reduce(function (values, name) {
                 var value = opts[name];
@@ -18,9 +19,15 @@ riot.tag('formatted-message',' \
                 return values;
             }, {});
             if (message) {
-                this.formattedMessage = this.formatMessage(message, values);
+                self.formattedMessage = self.formatMessage(message, values);
             }
+        };
+
+        this.on('update', function() {
+            updateItemData();
         });
+
+        updateItemData();
     }
 );
 
