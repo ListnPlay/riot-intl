@@ -2503,8 +2503,9 @@
      ',
         function(opts) {
             this.mixin($$mixin$$default);
+            var self = this;
 
-            this.on('update', function() {
+            var updateItemData = function() {
                 var message = opts.message;
                 var values = Object.keys(opts).reduce(function (values, name) {
                     var value = opts[name];
@@ -2513,9 +2514,15 @@
                     return values;
                 }, {});
                 if (message) {
-                    this.formattedMessage = this.formatMessage(message, values);
+                    self.formattedMessage = self.formatMessage(message, values);
                 }
+            };
+
+            this.on('update', function() {
+                updateItemData();
             });
+
+            updateItemData();
         }
     );
 
@@ -2526,6 +2533,7 @@
      ',
         function(opts) {
             this.mixin($$mixin$$default);
+            var self = this;
 
             this.formatOptions = [
                 'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
@@ -2533,13 +2541,19 @@
                 'timeZoneName'
             ];
 
-            this.on('update', function() {
+            var updateItemData = function() {
                 var value = opts.value;
                 var format = opts.format;
-                var defaults = format && this.getNamedFormat('date', format);
-                var options  = this.filterFormatOptions(opts, defaults);
-                this.formattedDate = this.formatDate(value, options);
+                var defaults = format && self.getNamedFormat('date', format);
+                var options  = self.filterFormatOptions(opts, defaults);
+                self.formattedDate = self.formatDate(value, options);
+            }
+
+            this.on('update', function() {
+                updateItemData();
             });
+
+            updateItemData();
 
         }
     );
@@ -2551,6 +2565,7 @@
      ',
         function(opts) {
             this.mixin($$mixin$$default);
+            var self = this;
 
             this.formatOptions = [
                 'localeMatcher', 'style', 'currency', 'currencyDisplay',
@@ -2559,14 +2574,19 @@
                 'maximumSignificantDigits'
             ];
 
-            this.on('update', function() {
+            var updateItemData = function() {
                 var value = opts.value;
                 var format = opts.format;
-                var defaults = format && this.getNamedFormat('number', format);
-                var options  = this.filterFormatOptions(opts, defaults);
-                this.formattedNumber = this.formatNumber(value, options);
+                var defaults = format && self.getNamedFormat('number', format);
+                var options  = self.filterFormatOptions(opts, defaults);
+                self.formattedNumber = self.formatNumber(value, options);
+            };
+
+            this.on('update', function() {
+                updateItemData();
             });
 
+            updateItemData();
         }
     );
 
@@ -2577,6 +2597,7 @@
      ',
         function(opts) {
             this.mixin($$mixin$$default);
+            var self = this;
 
             this.formatOptions = [
                 'localeMatcher', 'timeZone', 'hour12', 'formatMatcher', 'weekday',
@@ -2584,7 +2605,7 @@
                 'timeZoneName'
             ];
 
-            this.on('update', function() {
+            var updateItemData = function() {
                 /* Support only short. workaround for explorer. need to upgrade and rewrite riot-intl */
                 var value = opts.value
                 var ms = value % 1000;
@@ -2592,16 +2613,21 @@
                 var secs = value % 60;
                 var mins = (value - secs) / 60;
 
-                this.formattedTime =  mins + ':' + ('0' + secs).slice(-2);
+                self.formattedTime =  mins + ':' + ('0' + secs).slice(-2);
                 /*
                     var value = opts.value;
                     var format = opts.format;
-                    var defaults = format && this.getNamedFormat('time', format);
-                    var options = this.filterFormatOptions(opts, defaults);
-                    this.formattedTime = this.formatTime(value, options);
+                    var defaults = format && self.getNamedFormat('time', format);
+                    var options = self.filterFormatOptions(opts, defaults);
+                    self.formattedTime = self.formatTime(value, options);
                 */
+            };
+
+            this.on('update', function() {
+                updateItemData();
             });
 
+            updateItemData();
         }
     );
 
@@ -2612,19 +2638,25 @@
      ',
         function(opts) {
             this.mixin($$mixin$$default);
+            var self = this;
 
             this.formatOptions = [
                 'style', 'units'
             ];
 
-            this.on('update', function() {
+            var updateItemData = function() {
                 var value = opts.value;
                 var format = opts.format;
-                var defaults = format && this.getNamedFormat('relative', format);
-                var options  = this.filterFormatOptions(opts, defaults);
-                this.formattedRelative = this.formatRelative(value, options, {now: opts.now});
-            })
+                var defaults = format && self.getNamedFormat('relative', format);
+                var options  = self.filterFormatOptions(opts, defaults);
+                self.formattedRelative = self.formatRelative(value, options, {now: opts.now});
+            }
 
+            this.on('update', function() {
+                updateItemData();
+            });
+
+            updateItemData();
         }
     );
 
