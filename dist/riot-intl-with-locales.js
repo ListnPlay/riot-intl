@@ -2445,7 +2445,7 @@
             var pathParts = path.split('.');
 
             var message;
-            
+
             try {
                 message = pathParts.reduce(function (obj, pathPart) {
                     return obj[pathPart];
@@ -2457,7 +2457,22 @@
                 }
             }
 
-            return message;  
+            return message;
+        },
+
+        getIntlMessageByType: function(labelPrefix, type, fallbackMsgLabel) {
+            if (!type) return '';
+            if (!labelPrefix) {
+                console.error('getIntlLabelMsg assertion. labelPrefix is missing.');
+                throw new ReferenceError('getIntlLabelMsg assertion. labelPrefix is missing.');
+            }
+            var msg;
+            try {
+                msg = this.getIntlMessage(labelPrefix + '_' + type.toUpperCase());
+            } catch (e) {
+                msg = this.getIntlMessage(fallbackMsgLabel || 'LABEL_LOCALE_TYPE_OTHER');
+            }
+            return msg;
         },
 
         getNamedFormat: function (type, name) {

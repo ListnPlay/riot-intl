@@ -117,9 +117,9 @@ export default {
             console.error('getIntlLabelMsg assertion. labelPrefix is missing.');
             throw new ReferenceError('getIntlLabelMsg assertion. labelPrefix is missing.');
         }
-        let msg;
+        var msg;
         try {
-            msg = this.getIntlMessage(`${labelPrefix}_${type.toUpperCase()}`)
+            msg = this.getIntlMessage(labelPrefix + '_' + type.toUpperCase());
         } catch (e) {
             msg = this.getIntlMessage(fallbackMsgLabel || 'LABEL_LOCALE_TYPE_OTHER');
         }
