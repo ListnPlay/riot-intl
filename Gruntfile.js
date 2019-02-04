@@ -5,7 +5,8 @@ module.exports = function (grunt) {
         clean: {
             dist: 'dist/',
             lib : 'lib/',
-            tmp : 'tmp/'
+            tmp : 'tmp/',
+            crowdfund: '../CrowdFund/lib/riot-intl/',
         },
 
         copy: {
@@ -14,6 +15,13 @@ module.exports = function (grunt) {
                 cwd   : 'tmp/src/',
                 src   : '**/*.js',
                 dest  : 'lib/'
+            },
+
+            dist_to_crowdfund: {
+                expand: true,
+                cwd   : 'dist/',
+                src   : '**/*.js',
+                dest  : '../CrowdFund/lib/riot-intl/'
             }
         },
 
@@ -241,7 +249,8 @@ module.exports = function (grunt) {
         'uglify',
         'json_remove_fields',
         'cjs_jsnext',
-        'copy:tmp'
+        'copy:tmp',
+        'copy:dist_to_crowdfund'
     ]);
 
     grunt.registerTask('default', [
