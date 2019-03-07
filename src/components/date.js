@@ -19,7 +19,7 @@ riot.tag('formatted-date',' \
         var updateItemData = function() {
             var value = opts.value;
             var format = opts.format;
-            if (value && format) {
+            if (value) {
                 var defaults = format && self.getNamedFormat('date', format);
                 var options = self.filterFormatOptions(opts, defaults);
                 self.formattedDate = self.formatDate(value, options);
