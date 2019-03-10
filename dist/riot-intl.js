@@ -2559,10 +2559,13 @@
             var updateItemData = function() {
                 var value = opts.value;
                 var format = opts.format;
-                if (value) {
+                if (value && value > 0) {
                     var defaults = format && self.getNamedFormat('date', format);
                     var options = self.filterFormatOptions(opts, defaults);
-                    self.formattedDate = self.formatDate(value, options);
+                    console.error('foo1d', value);
+                    self.formattedDate = self.formatDate(value || 1499603917000, options);
+                } else {
+                    console.error('foo2');
                 }
             };
 
